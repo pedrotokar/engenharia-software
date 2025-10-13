@@ -73,14 +73,16 @@ classes e oferecerão as interfaces das duas.
 ## Decisões tomadas na atividade
 
 Para o projeto, utilizei adaptadores para implementar uma interface `obter_dados`.
-Cada subclasse da classe abstrata `CollectionAdapter` implementa esse método e é
-associada à uma outra classe, que por sua vez armazena de sua própria forma os
-dados de insturmentos **(na prática, não fiz classes para representar o arquivo
-csv e a API por economia de tempo. Para ficar de acordo com o apresentado
-no livro, seria necessário ter essas classes e ligar os adaptadores por composição
-nelas)**
+Cada subclasse da classe abstrata `AdaptadorInstrumento` implementa esse método, e
+a subclasse `AdaptadorObjeto` é associada à uma instância de `Loja`, fazendo o
+papel de adaptar as funcionalidades da classe `Loja` para a interface desejada
+`obter_dados`.
 
-Assim, independente de como os dados estiverem armazenados, existe uma forma de obtê-los como tuplas.
+Assim, independente de como os dados estiverem armazenados, existe uma forma de obtê-los como tuplas. Uma implementação mais fiel do padrão adaptador poderia
+definir classes como `API` e `CSV` que fizessem dentro delas a coleta dos dados
+do CSV e API, com seus próprios métodos e interfaces, e as classes adaptadoras
+trabalhariam com elas para converter os dados ao formato desejado. No caso
+da atividade, porém, isso introduziria uma complexidade desnecessária.
 
 Os iteradores foram empregados junto com uma coleção de instrumentos. Essa
 coleção/agregado de instrumentos oferece um método para obter um iterador (como
@@ -92,7 +94,8 @@ A coleção em si recebe vários adaptadores. Apesar de não saber se essa é a 
 abordagem para resolver o problema na prática, tentei me manter o mais fiel que
 pude à ideia do livro, então fiz essa classe coleção. Uma implementação
 alternativa poderia fazer a "coleta" dos itens dos adaptadores dentro da coleção,
-e não no iterador.
+e não no iterador. Uma implementação alternativa também poderia unificar a coleção
+e o iterador em uma única classe.
 
 Uma possível vantagem do iterador seria adicionar outras formas de iteração.
 Uma delas seria não iterar em items que viessem de um adaptador X ou Y.

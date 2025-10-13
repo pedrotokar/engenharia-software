@@ -9,44 +9,44 @@ class TipoCaptacao(Enum):
     ATIVA = 1
 
 class Instrumento():
-    def __init__(self, marca, modelo, preco, numero_cordas):
+    def __init__(self, marca: str, modelo: str, preco: float, numero_cordas: int):
         self._marca = marca
         self._modelo = modelo
         self._preco = float(preco)
         self._len_cordas = numero_cordas
 
     @property
-    def marca(self):
+    def marca(self) -> str:
         return self._marca
 
     @marca.setter
-    def marca(self, marca):
+    def marca(self, marca: str):
         self._marca = marca
 
     @property
-    def modelo(self):
+    def modelo(self) -> str:
         return self._modelo
 
     @modelo.setter
-    def modelo(self, modelo):
+    def modelo(self, modelo: str):
         self._modelo = modelo
 
     @property
-    def numero_cordas(self):
+    def numero_cordas(self) -> int:
         return self._len_cordas
 
     @numero_cordas.setter
-    def numero_cordas(self, numero_cordas):
+    def numero_cordas(self, numero_cordas: int):
         if numero_cordas < 1 or numero_cordas > 10 or not isinstance(numero_cordas, int):
             raise ValueError("Infelizmente não existem instrumentos com esse número de cordas")
         self._len_cordas = numero_cordas
 
     @property
-    def preco(self):
+    def preco(self) -> float:
         return self._preco
 
     @preco.setter
-    def preco(self, preco):
+    def preco(self, preco: float):
         if preco <= 0 or not isinstance(preco, float):
             raise ValueError("Preço invalido para o instrumento")
         self._preco = preco
@@ -54,40 +54,40 @@ class Instrumento():
     def tocar(self, nota):
         raise NotImplementedError("Subclasse não implementou essse método.")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"{self._marca} {self._modelo} com {self._len_cordas} cordas. Custando R${self._preco}."
 
     def __del__(self):
         print(f"deletando instrumento {self._marca} {self._modelo}")
 
 class Baixo(Instrumento):
-    def __init__(self, marca, modelo, preco, numero_cordas = 4, captacao = TipoCaptacao.PASSIVA):
+    def __init__(self, marca: str, modelo: str, preco: float, numero_cordas: int = 4, captacao: TipoCaptacao = TipoCaptacao.PASSIVA):
         super().__init__(marca, modelo, preco, numero_cordas)
         self._tipo_captacao = captacao
 
     @property
-    def captacao(self):
+    def captacao(self) -> TipoCaptacao:
         return self._tipo_captacao
 
     def tocar(self, nota):
         print(f"Tocaram um {nota} muito grave num baixo {self._marca}.")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return super().__repr__() + f" Captação {self._tipo_captacao.name}"
 
 class Loja:
-    def __init__(self, nome):
+    def __init__(self, nome: str):
         self._nome = nome
         self._instrumentos = []
     
     @property
-    def instrumentos(self):
+    def instrumentos(self) -> list[Instrumento]:
         return self._instrumentos
 
-    def adicionar_instrumento(self, instrumento):
+    def adicionar_instrumento(self, instrumento: Instrumento):
         self._instrumentos.append(instrumento)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         string = f"Loja {self._nome} com instrumentos: \n"
         for instrumento in self._instrumentos:
             string += str(instrumento) + "\n"

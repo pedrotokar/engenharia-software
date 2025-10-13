@@ -5,12 +5,13 @@ uma lista com essas tuplas padronizadas. Dessa forma, um cliente pode usar
 qualquer adaptador, que por sua vez estará ligado a diferentes fontes de dados."""
 
 from loja import Loja, Baixo, TipoCaptacao
+
 from abc import ABC, abstractmethod
 from os.path import join
 from glob import glob
 import json
 
-class CollectionAdapter(ABC):
+class AdaptadorInstrumento(ABC):
     """Classe abstrata de adaptador que implementa o método que o cliente 
     (agregado/coleção) quer."""
     def __init__(self):
@@ -21,11 +22,11 @@ class CollectionAdapter(ABC):
         """Retorna uma lista de tuplas, cada tupla representando um instrumento."""
         pass
     
-class ObjectAdapter(CollectionAdapter):
+class AdaptadorObjeto(AdaptadorInstrumento):
     """Essa classe implementa a interface de CollectionAdapter e por meio de uma
     associação simples, "traduz" as saídas da classe de loja para o formato das
     tuplas."""
-    def __init__(self, loja):
+    def __init__(self, loja: Loja):
         super().__init__()
         self._loja = loja
 
@@ -44,11 +45,15 @@ class ObjectAdapter(CollectionAdapter):
             retorno.append(tupla)
         return retorno
 
-#Essa classe implementa a interface de CollectionAdapter e *aqui deveria ser uma
-#associação mas estou economizando tempo* "traduz" as saídas de um objeto csv para
-#essa interface
-class CSVAdapter(CollectionAdapter):
-    def __init__(self, arquivo):
+#Essa classe implementa a interface de CollectionAdapter. Aqui (e na adaptador API)
+#tomei a liberdade de alterar a estrutura do adaptador para não usar uma segunda
+#classe, apenas a interface. Para ser mais fiel ao livro, poderia criar um objeto
+#representando um CSV e usar os métodos dele para implementar essa interface.
+#Mas isso seria overengineering :D
+class AdaptadorCSV(AdaptadorInstrumento):
+    """Essa classe implementa a interface de CollectionAdapter e interamente
+    faz a leitura de um csv e converte para o formato esperado."""
+    def __init__(self, arquivo: str):
         self._arquivo = arquivo
 
     def obter_dados(self) -> list[tuple]:
@@ -63,8 +68,10 @@ class CSVAdapter(CollectionAdapter):
                 retorno.append(tuple(campos))
         return retorno
 
-class APIAdapter(CollectionAdapter):
-    def __init__(self, diretorio):
+class AdaptadorAPI(AdaptadorInstrumento):
+    """Essa classe implementa a interface de CollectionAdapter e interamente
+    faz a leitura de uma api de instrumentos e converte para o formato esperado."""
+    def __init__(self, diretorio: tuple):
         self._diretorio = diretorio
     
     def obter_dados(self) -> list[tuple]:
@@ -99,11 +106,11 @@ if __name__ == "__main__":
     loja.adicionar_instrumento(baixo_3)
     loja.adicionar_instrumento(baixo_4)
 
-    adaptador_loja = ObjectAdapter(loja)
+    adaptador_loja = AdaptadorObjeto(loja)
     pprint(adaptador_loja.obter_dados())
 
-    adaptador_csv = CSVAdapter("data/baixos.csv")
+    adaptador_csv = AdaptadorCSV("data/baixos.csv")
     pprint(adaptador_csv.obter_dados())
 
-    adaptador_api = APIAdapter(join("data", "api"))
+    adaptador_api = AdaptadorAPI(join("data", "api"))
     pprint(adaptador_api.obter_dados())
