@@ -40,7 +40,7 @@ de cursor.
 ### Adaptador
 
 Os adaptadores são um padrão de projeto pensado para o caso em que se deseja
-utilizar uma classe em um projeto, mas essa classe (*adapter*) não implementa as
+utilizar uma classe em um projeto, mas essa classe (_adaptee_) não implementa as
 interfaces esperadas pelo cliente. Eles cumprem o papel de implementar essas
 interfaces, utilizando e manipulando as interfaces do objeto que se deseja
 utilizar.
