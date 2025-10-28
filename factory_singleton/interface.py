@@ -27,7 +27,7 @@ class JanelaQt(Janela):
         # desenhar_a_janela_qt(posicao)
         print("Janela desenhada no Qt")
 
-class CursorQt(ABC):
+class CursorQt(Cursor):
     def desenhar(self, posicao, tipo_interacao):
         # self.cursor_atual = tipo_interacao
         # desenhar_o_cursor_qt(posicao, tipo_interacao)
@@ -45,7 +45,7 @@ class JanelaGTK(Janela):
         # desenhar_a_janela_gtk(posicao)
         print("Janela desenhada no GTK")
 
-class CursorGTK(ABC):
+class CursorGTK(Cursor):
     def desenhar(self, posicao, tipo_interacao):
         # self.cursor_atual = tipo_interacao
         # desenhar_o_cursor_gtk(posicao, tipo_interacao)
