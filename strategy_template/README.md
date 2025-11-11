@@ -3,8 +3,6 @@
 O diretório atual contém um resumo a respeito dos padrões strategy e template
 methods.
 
-## Padrões utilizados na atividade
-
 ## Padrões
 
 ### Strategy
