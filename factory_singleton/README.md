@@ -5,96 +5,11 @@ factory methods e singletons.
 
 ## Padrões utilizados na atividade
 
-### Singleton
+[Resumo sobre singleton](./../resumos/singleton.md)
 
-O singleton é um padrão pensado para casos em que apenas uma instância de uma
-classe deve/pode existir na execução da aplicação. Esses casos ocorrem quando
-uma classe é uma coleção de várias outras, e apenas uma coleção dessas deve
-existir, ou quando a classe tem a responsabilidade de se comunicar com o sistema
-e apenas uma instância deve estar fazendo essa comunicação.
+[Resumo sobre factory method](./../resumos/factory_method.md)
 
-O padrão previne que o cliente se preocupe em adminstrar o acesso à instância
-durante a execução, já que a própria classe se responsabiliza por sempre retornar
-a mesma instância e não permitir a criação de outra, nem que seja por acidente.
-Essa característica também permite que o acesso à instância seja alterado na
-classe, para por exemplo permitir mais de uma instância, sem precisar de muita
-refatoração no código do cliente.
-
-![Esquema UML das classes envolvidas em um singleton](singleton.png)
-
-A implementação pode ser feita de várias maneiras. Na mais simples, existirá um
-método de classe que vai fazer o gerenciamento da instância. Quando esse método é
-chamado pela primeira vez, ele irá criar a instância (lazy loading) e nas
-próximas vezes irá retornar a instância já criada (e nesse caso o construtor)
-da classe será privado/protegido. Em Python é possível sobreescrever o método
-`__new__` ou usar um decorador. 
-
-O singleton fica mais complexo quando envolve subclasses. Caso seja possível
-haver uma instância pra cada subclasse, o problema pode ser resolvido com um
-mapeamento de classe -> instância da classe que pode ser usado para encontrar
-a instância certa. Esse também é conhecido como multiton. Em C++ é possível
-implementar o método instance em cada subclasse, mas isso irá forçar o cliente
-a saber de quais subclasses ele irá querer fazer a instância de antemão.
-
-### Factory Method
-
-O factory method é um padrão pensado para delegar a criação de uma instância de
-uma classe específica para um método, no lugar de diretamente construir essa
-classe. Isso é útil para casos em que a interface do construtor é alterada mas
-o cliente não precisa saber/se preocupar com isso. Também é útil para caso
-existam várias subclasses que possam ser instânciadas, todas seguindo uma
-inteface pré-estabelecida, e que a construção delas divirja. Nesse caso, não
-é desejado que o cliente se preocupe com essa divergência.
-
-Nesse padrão, existe um Creator, que tem a interface do método factory e 
-um Produto, que tem uma interface desejada e posssivelmente várias subclasses
-(Produtos Concretos) que implementem ela. 
-
-Uma implementação padrão irá ter várias subclasses do Creator (Creators
-Concretos), com cada uma implementando o método factory que cria uma instância
-de um produto concreto diferente. O Creator original pode ou não pode implementar
-uma factory padrão, tornando opcional ou não a existência de subclasses.
-
-![Esquema UML das classes envolvidas na implementação do factory method](factory_method.png)
-
-Uma variação do factory method é o factory method parametrizado. Nesse caso,
-o método pode receber algum parâmetro e usar ele como base para saber qual
-produto concreto ele irá instanciar e retornar. Nesse caso, subclasses do Creator
-podem adicionar ou modificar o funcionamento de algumas opções de parâmetro
-específicas, e delegar o processamento dos demais parâmetros para o método
-da classe pai.
-
-### Abstract Factory
-
-O abstract factory é um padrão pensado para auxiliar na criação de famílias de
-produtos que implementem interfaces pré-definidas, tirando do cliente a
-preocupação de ter que saber quais as classes concretas dos produtos.
-
-Nesse padrão, existem diversos produtos, que são geralmente abstratos. Esses
-produtos abstratos tem subclasses (produtos concretos) que implementam as
-interfaces desses produtos, e existem produtos concretos derivados de diferentes
-produtos abstratos que tem algo em comum entre si, e devem ser usados em 
-conjunto. Por exemplo, podem existir produtos abstratos como componentes de
-inteface gráfica (scroll, botão, etc) e implementações desses produtos abstratos
-para diferentes bibliotecas de desenho (Qt, GTK).
-
-Para que o cliente não se preocupe com quais produtos concretos instanciar, a
-abstract factory define métodos factory abstratos que devem retornar instâncias
-específicas dos produtos, e as subclasses da abstract factory vão sobreescrever
-esses métodos para retornar produtos concretos específicos e que trabalhem bem
-entre si.
-
-![Esquema UML das classes envolvidas no padrão abstract factory](abstract_factory.png)
-
-As abstract factorys podem ainda ser criadas usando um factory method ou também
-podem ser feitas com um singleton para prevenir a existência de várias delas. 
-
-Uma desvantagem clara desse padrão é que ele dificulta a adição de um novo 
-produto abstrato, já que todas as factorys existentes teriam que ser modificadas
-para adicionar um novo método para esse produto novo. É possível contornar isso
-fazendo um método de criação de produtos que receba um parâmetro, no lugar de
-vários métodos. Mas isso pode causar inconsistências entre os possíveis
-parâmetros que são aceitos por cada factory específica.
+[Resumo sobre abstract factory](./../resumos/abstract_factory.md)
 
 ## Decisões tomadas na atividade
 
