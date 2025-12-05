@@ -11,11 +11,12 @@ projetos. A pasta [`resumos`](resumos/) contém diversos arquivos markdown
 (indexados no arquivo [`resumos/README.md`](resumos/README.md) para fácil
 acesso) com resumos sobre cada um dos padrões vistos no decorrer da matéria.
 
-As pastas [`factory_singleton`](factory_singleton/) e [`iterator_adapter`](iterator_adapter/)
-contém atividades sugeridas pelo professor ou pela monitora da matéria para 
-estudo de padrões específicos, que seriam cobrados em conjunto em alguma das 
-provas aplicadas durante a matéria. Junto com os enunciados das atividades, se 
-encontram suas resoluções.
+As pastas [`factory_singleton`](factory_singleton/) e 
+[`iterator_adapter`](iterator_adapter/) contém atividades sugeridas pelo
+professor ou pela monitora da matéria para estudo de padrões específicos, que
+seriam cobrados em conjunto em alguma das provas aplicadas durante a matéria.
+Junto com os enunciados das atividades, se encontram as minhas resoluções para
+elas.
 
-Nas demais pastas é possível encontrar as provas aplicadas na matéria que eram
-sobre padrões de projeto, junto com minhas soluções para elas.
+Nas demais pastas é possível encontrar as provas aplicadas na matéria (apenas
+provas que eram sobre padrões de projeto) junto com minhas soluções para elas.
